@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title></title>
+<script type="text/javascript" src="test.js"></script>
+<script type="text/javascript">
+function _Console( id ){
+	this._div  = document.getElementById( id );
+	this._html = "";
+	this._time = (new Date()).getTime();
+}
+_Console.prototype = {
+	print : function( str ){
+		this._html += "" + str;
+		this._div.innerHTML = this._html;
+	},
+	println : function( str ){
+		this._html += "" + str + "<br>";
+		this._div.innerHTML = this._html;
+	},
+	resetTime : function(){
+		this._time = (new Date()).getTime();
+	},
+	printTime : function(){
+		this.println( "" + ((new Date()).getTime() - this._time) + " ms" );
+	}
+};
+</script>
+</head>
+<body onload="main( new _Console( 'div0' ) )">
+<div id="div0" align="left" style="font-family:'Courier New'; font-size:16px"></div>
+</body>
+</html>
