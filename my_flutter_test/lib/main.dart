@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'test.dart';
 
 void main() {
-  test();
   runApp(const MyApp());
 }
 
@@ -38,10 +37,7 @@ class _MyHomePageState extends State {
       appBar: AppBar(
           toolbarHeight: 0
       ),
-      body: SizedBox(
-          width: contentWidth,
-          height: contentHeight
-      ),
+      body: test( contentWidth, contentHeight ),
     );
   }
 }
