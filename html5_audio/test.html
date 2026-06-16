@@ -267,6 +267,18 @@ function myLoadAudio(){
   audio_stop  = false;
   audio_type  = can_use_audio ? 0 : 1;
   //audio_loop  = false;
+  if( audio_loop ){
+    myPlayAudio();
+  }
+}
+
+function myPlayAudio(){
+  switch( audio_type ){
+  case 0: playAudio( audio, audio_loop ); break;
+  case 1: playAudioEx( audio, audio_loop, "audio" ); break;
+  case 2: playAudioEx( audio, audio_loop, "bgsound" ); break;
+  case 3: playAudioEx( audio, audio_loop, "embed" ); break;
+  }
 }
 
 function myStopAudio(){
@@ -302,12 +314,7 @@ function processEvent( type, param ){
           case 3: audio = loadAndPlayAudioEx( audioSrc[audio_index], audio_loop, "embed" ); break;
           }
         } else if( (audio_type != 0) || isLoaded( audio ) ){
-          switch( audio_type ){
-          case 0: playAudio( audio, audio_loop ); break;
-          case 1: playAudioEx( audio, audio_loop, "audio" ); break;
-          case 2: playAudioEx( audio, audio_loop, "bgsound" ); break;
-          case 3: playAudioEx( audio, audio_loop, "embed" ); break;
-          }
+          myPlayAudio();
         }
       }
       break;
