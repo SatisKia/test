@@ -19,7 +19,8 @@ var glu;
 var shader;
 var modelViewMatrix;
 
-var model;
+var model = new Array(modelSrc.length);
+var modelIndex = 0;
 
 var cameraX = 0.0;
 var cameraY = 0.0;
@@ -135,7 +136,9 @@ function init3D(gl, _glu) {
   shader = new _GLShader(vsSource, fsSource, true);
   shader.use();
 
-  model = createGLModel(modelSrc, 0.01, -1, true, false);
+  for (var i = 0; i < modelSrc.length; i++) {
+    model[i] = createGLModel(modelSrc[i], 0.01, -1, true, false);
+  }
 
   gl.uniformMatrix4fv(shader.vars.uProjectionMatrix, false, projectionMatrix);
 
@@ -179,18 +182,19 @@ function paint3D(gl, glu) {
   gl.depthMask(true);
 
   var gld = new _GLDraw(null);
-  gld.add(model, -1, -1, modelViewMatrix, -1);
+  gld.add(model[modelIndex], -1, -1, modelViewMatrix, -1);
   gld.draw(null);
 }
 
 function paint2D(g) {
   g.setFont(24, "ＭＳ ゴシック");
   g.setColor(g.getColorOfRGB(255, 0, 255));
-  g.drawString("rotateX " + rotateX, 0, 24);
-  g.drawString("rotateY " + rotateY, 0, 48);
-  g.drawString("lightX " + lightX, 0, 72);
-  g.drawString("lightY " + lightY, 0, 96);
-  g.drawString("lightZ " + lightZ, 0, 120);
+  g.drawString("model " + (modelIndex + 1) + " / " + model.length, 0, 24);
+  g.drawString("rotateX " + rotateX, 0, 48);
+  g.drawString("rotateY " + rotateY, 0, 72);
+  g.drawString("lightX " + lightX, 0, 96);
+  g.drawString("lightY " + lightY, 0, 120);
+  g.drawString("lightZ " + lightZ, 0, 144);
 }
 
 // _GLModel用
@@ -236,6 +240,22 @@ function glDrawSetModelViewMatrix(gl, mat) {
 
 function processEvent(type, param) {
   switch (type) {
+  case window._KEY_PRESSED_EVENT:
+    if (param == window._KEY_C) {
+      var tmp = modelIndex - 1;
+      if (tmp < 0) {
+        tmp = model.length;
+      }
+      modelIndex = tmp;
+    }
+    if (param == window._KEY_V) {
+      var tmp = modelIndex + 1;
+      if (tmp >= model.length) {
+        tmp = 0;
+      }
+      modelIndex = tmp;
+    }
+    break;
   case window._MOUSE_DOWN_EVENT:
     mouseDown = true;
     mouseX = getMouseX();
