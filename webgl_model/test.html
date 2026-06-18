@@ -244,7 +244,7 @@ function processEvent(type, param) {
     if (param == window._KEY_C) {
       var tmp = modelIndex - 1;
       if (tmp < 0) {
-        tmp = model.length;
+        tmp = model.length - 1;
       }
       modelIndex = tmp;
     }

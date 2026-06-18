@@ -4,7 +4,7 @@ const path = require("path");
 const ROOT = __dirname;
 const TMP_DIR = path.join(ROOT, "tmp");
 const OUTPUT = path.join(ROOT, "audio.js");
-const EXCLUDE = new Set(["TODO.txt"]);
+const EXCLUDE = new Set(["TODO"]);
 
 function buildAudioList() {
   const entries = fs.readdirSync(TMP_DIR, { withFileTypes: true });

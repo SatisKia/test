@@ -1,1 +1,4 @@
 html5_audio/tmp/*.mp3
+html5_audio/audio.js
+webgl_model/tmp/*.txt
+webgl_model/model.js
